@@ -45,7 +45,7 @@ rails db:create
 rails db:migrate
 ```
 
-5. Você  pode rodar o projeto executando:
+7. Você  pode rodar o projeto executando:
 
  ```bash
 rails serve
