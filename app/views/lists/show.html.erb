@@ -19,7 +19,7 @@
             
             <% modal_component.with_footer do %>
                 <div class="w-full flex flex-col gap-4">
-                    <%= button_to render(Button::ButtonComponent.new(label: 'Deletar')), list_path(@list), method: :delete, data: { confirm: 'Você tem certeza que deseja excluir esta lista?' }, class: 'your-class' %>
+                    <%= button_to render(Button::ButtonComponent.new(label: 'Deletar')), list_path(@list), method: :delete, class: 'your-class' %>
                     <div data-action='click->modal#close'>
                         <%= render Button::ButtonComponent.new(outlined: true, label: 'Cancelar') %>
                     </div>
@@ -39,7 +39,9 @@
                     </form>
                     <p class="text-gay-950 text-md"><%= item.text %></p>
                     </div>
-                    <i class="material-icons text-primary-500 cursor-pointer">remove</i>
+                    <%= button_to list_item_path(@list.id, item.id), method: :delete do %>
+                        <i class="material-icons text-primary-500 cursor-pointer">remove</i>
+                    <% end %>
                 </li>
             <% end %>
         <% else %>

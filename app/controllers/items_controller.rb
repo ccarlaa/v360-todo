@@ -29,7 +29,14 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    
+    @list = List.find(params[:list_id])
+    @item = @list.items.find(params[:id])
+    @item.destroy
+
+    respond_to do |format|
+      format.html { redirect_to list_item_path(@list) }
+      format.json { head :no_content }
+    end
   end
 
   private
