@@ -9,11 +9,11 @@
   <li>Cada lista tem que poder ser adicionado vários itens.</li>
 </ul>
 
-## Vizualização 
+## 📱 Vizualização 
 
 ![v360](https://github.com/user-attachments/assets/31911aae-ac51-4f0e-8c8e-758360a23c54)
 
-## Tecnologias utilizadas 
+## 📌 Tecnologias utilizadas 
 
 [![My Skills](https://skillicons.dev/icons?i=rails,sqlite,tailwind)](https://skillicons.dev)
 
