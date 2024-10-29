@@ -1,0 +1,11 @@
+<div class="flex flex-col gap-2">
+  <% if @label %>
+    <label for="<%= @name %>" class="block text-md font-normal text-gray-950 ">
+      <%= @label %>
+    </label>
+  <% end %>
+  <input type="<%= @type %>" name="<%= @name %>" id="<%= @name %>" value="<%= @value %>" placeholder="<%= @placeholder %>"
+         <% if @required %> required <% end %>
+         <% if @disabled %> disabled <% end %>
+         class="active:outline-none block w-full text-gray-950 focus:ring-0 rounded-xl border-gray-400 focus:border-primary-500 hover:gray-100 disabled:border-gray-200 disabled:text-gray-600" />
+</div>

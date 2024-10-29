@@ -1,0 +1,71 @@
+<div class="w-full h-full relative">
+    <header class="w-full flex items-center justify-between py-5 gap-2.5">
+        <div class="w-full flex items-center gap-4">
+            <%= link_to lists_path do %>
+                <i class="material-icons text-gray-950">arrow_back</i>
+            <% end %>
+            <h1 class="text-gray-950 font-semibold text-2xl pb-2"><%= @list.name %></h1>
+        </div>
+        <%= render Modal::ModalComponent.new(title: 'Deletar lista') do |modal_component| %>
+            <% modal_component.with_button do %>
+                <i class="material-icons text-primary-500">delete_forever</i>
+            <% end %>
+            
+            <% modal_component.with_body do %>
+                <p class="text-gray-950">
+                    Tem certeza que quer deletar a lista <b><%= @list[:name] %></b>?
+                </p>
+            <% end %>
+            
+            <% modal_component.with_footer do %>
+                <div class="w-full flex flex-col gap-4">
+                    <%= button_to render(Button::ButtonComponent.new(label: 'Deletar')), list_path(@list), method: :delete, data: { confirm: 'Você tem certeza que deseja excluir esta lista?' }, class: 'your-class' %>
+                    <div data-action='click->modal#close'>
+                        <%= render Button::ButtonComponent.new(outlined: true, label: 'Cancelar') %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </header>
+    <section class="w-full flex flex-col gap-4">
+        <% if @items.present? %>
+            <% @items.each do |item| %>
+                <li class="w-full flex justify-between">
+                    <div class="flex gap-2 w-full">
+                    <form method="post" action="/lists/<%= @list.id%>/items/<%= item.id%>/toggle_done" id='update-item-form' data-remote="true">
+                        <button type="submit">
+                            <%= render(Checkbox::CheckboxComponent.new(checked: item.done)) %>
+                        </button>
+                    </form>
+                    <p class="text-gay-950 text-md"><%= item.text %></p>
+                    </div>
+                    <i class="material-icons text-primary-500 cursor-pointer">remove</i>
+                </li>
+            <% end %>
+        <% else %>
+            <h1 class="w-full text-lg text-gray-950 text-center whitespace-nowrap ">Ainda não há items.</h1>
+        <% end %>
+    </section>
+    <%= render Modal::ModalComponent.new(title: 'Criar item') do |modal_component| %>
+        <% modal_component.with_button do %>
+            <div class="fixed right-4 bottom-4 w-14 h-14 rounded-full cursor-pointer bg-orange-500 flex items-center justify-center">
+            <i class="material-icons text-secondary-500">add</i>
+            </div>
+        <% end %>
+        
+        <% modal_component.with_body do %>
+            <%= form_with(model: Item.new, url: list_items_path(@list), local: true, html: { id: 'create-item-form' }) do |form| %>
+                <%= render Input::InputComponent.new(label: 'Descrição', name: 'item[text]', placeholder: 'Descreva o item', required: true) %>
+            <% end %>
+        <% end %>
+        
+        <% modal_component.with_footer do %>
+            <div class="w-full flex flex-col gap-2">
+                <%= render Button::ButtonComponent.new(label: 'Adicionar', type: 'submit', html_options: { form: 'create-item-form' }) %>
+                <div data-action='click->modal#close'>
+                    <%= render Button::ButtonComponent.new(outlined: true, label: 'Cancelar') %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+</div>

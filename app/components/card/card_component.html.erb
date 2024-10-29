@@ -1,0 +1,23 @@
+<div class="w-full cursor-pointer p-4 h-80 flex flex-col gap-5 rounded-xl border border-gray-400 shadow-md">
+    <div class="flex justify-between gap-2">
+        <h1 class="text-2xl text-gray-950 whitespace-nowrap font-semibold w-full overflow-hidden text-ellipsis">
+            <%= @title %>
+        </h1>
+    </div>
+    <div class="w-full h-full overflow-hidden">
+        <ul class="flex flex-col gap-4">
+            <% @items.each do |item| %>
+                <li class="w-full flex justify-between">
+                    <div class="flex gap-2">
+                        <%= render Checkbox::CheckboxComponent.new(checked: true) %>
+                        <p class="text-gay-950 text-md"><% item %></p>
+                    </div>
+                    <i class="material-icons text-primary-500">remove</i>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+    <div class="w-full px-4 flex justify-center text-secondary-500">
+        <i class="material-icons">more_horiz</i>
+    </div>
+</div>

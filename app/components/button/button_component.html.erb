@@ -1,0 +1,5 @@
+<button <%= tag.attributes(@html_options) %> <%= 'disabled' if @disabled %> type="<%= @type%>" class="w-full h-11 rounded-xl <%= @outlined ? 'bg-white hover:bg-gray-400 focus:bg-gray-500 disabled:border-gray-200 border-gray-400 border text-gray-950' : 'bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 disabled:bg-orange-200 text-white' %>">
+  <span class="text-md font-medium">
+    <%= @label %>
+  </span>
+</button>

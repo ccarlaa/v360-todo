@@ -1,0 +1,18 @@
+<h1 class="text-2xl">Preview do Modal</h1>
+<p>Clique no botão abaixo para abrir o modal:</p>
+
+<button data-action="click->modal#open" class="px-4 py-2 bg-blue-500 text-white rounded">
+  Abrir Modal
+</button>
+
+<%= render Modal::ModalComponent.new(title: "Exemplo de Modal") do |modal| %>
+  <% modal.body do %>
+    <p>Esse é o conteúdo do modal exibido na prévia.</p>
+  <% end %>
+  
+  <% modal.footer do %>
+    <button data-action="click->modal#close" class="px-4 py-2 bg-red-500 text-white rounded">
+      Fechar Modal
+    </button>
+  <% end %>
+<% end %>

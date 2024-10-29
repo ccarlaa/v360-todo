@@ -1,0 +1,41 @@
+<div class="w-full h-full relative">
+    <header class="w-full flex items-center py-5 flex-col gap-2.5">
+        <%= image_tag image_path("logo.png"), alt: "Logo do software", class: "w-16 h-auto" %>
+        <%= render Input::InputComponent.new(name: :search, placeholder: 'Procurar lista') %>
+    </header>
+    
+    <section class="grid grid-cols-2 gap-4">
+        <% if @lists.present? %>
+            <% @lists.each do |list| %>
+                <%= link_to list_path(list) do %>
+                    <%= render Card::CardComponent.new(title: list[:name]) %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <h1 class="w-full text-lg text-gray-950 text-center whitespace-nowrap">Ainda não há listas.</h1>
+        <% end %>
+    </section>
+    
+    <%= render Modal::ModalComponent.new(title: 'Criar lista') do |modal_component| %>
+        <% modal_component.with_button do %>
+            <div class="fixed right-4 bottom-4 w-14 h-14 rounded-full cursor-pointer bg-orange-500 flex items-center justify-center">
+                <i class="material-icons text-secondary-500">add</i>
+            </div>
+        <% end %>
+        
+        <% modal_component.with_body do %>
+            <%= form_with(model: List.new, url: lists_path, local: true, html: { id: 'create-list-form' }) do |form| %>
+                <%= render Input::InputComponent.new(label: 'Nome da lista', name: 'list[name]', placeholder: 'Escolha um nome', required: true) %>
+            <% end %>
+        <% end %>
+        
+        <% modal_component.with_footer do %>
+            <div class="w-full flex flex-col gap-2">
+                <%= render Button::ButtonComponent.new(label: 'Criar', type: 'submit', html_options: { form: 'create-list-form' }) %>
+                <div data-action='click->modal#close'>
+                    <%= render Button::ButtonComponent.new(outlined: true, label: 'Cancelar') %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+</div>
