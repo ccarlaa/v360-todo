@@ -8,7 +8,7 @@
         <% if @lists.present? %>
             <% @lists.each do |list| %>
                 <%= link_to list_path(list) do %>
-                    <%= render Card::CardComponent.new(title: list[:name]) %>
+                    <%= render Card::CardComponent.new(title: list.name, items: list.items) %>
                 <% end %>
             <% end %>
         <% else %>

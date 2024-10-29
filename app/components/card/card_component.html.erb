@@ -1,18 +1,17 @@
 <div class="w-full cursor-pointer p-4 h-80 flex flex-col gap-5 rounded-xl border border-gray-400 shadow-md">
     <div class="flex justify-between gap-2">
-        <h1 class="text-2xl text-gray-950 whitespace-nowrap font-semibold w-full overflow-hidden text-ellipsis">
+        <h1 class="text-lg text-gray-950 whitespace-nowrap font-semibold w-full overflow-hidden text-ellipsis">
             <%= @title %>
         </h1>
     </div>
     <div class="w-full h-full overflow-hidden">
-        <ul class="flex flex-col gap-4">
+        <ul class="flex w-full flex-col gap-4">
             <% @items.each do |item| %>
                 <li class="w-full flex justify-between">
-                    <div class="flex gap-2">
-                        <%= render Checkbox::CheckboxComponent.new(checked: true) %>
-                        <p class="text-gay-950 text-md"><% item %></p>
+                    <div class="flex gap-2 w-full">
+                        <%= render Checkbox::CheckboxComponent.new(checked: item.done) %>
+                        <p class="text-gay-950 text-md w-full overflow-hidden text-ellipsis whitespace-nowrap"><%= item.text %></p>
                     </div>
-                    <i class="material-icons text-primary-500">remove</i>
                 </li>
             <% end %>
         </ul>
