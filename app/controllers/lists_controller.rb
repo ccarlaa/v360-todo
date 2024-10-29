@@ -1,8 +1,14 @@
 class ListsController < ApplicationController
   def index
-    @lists = List.all
+    if params[:name].present?
+      name = "%#{params[:name]}%"
+      @lists = List.where("name like ?", name)
+  
+    else
+      @lists = List.all
+      params[:name] = nil
+    end
   end
-
   def show
     @list = List.find(params[:id])
     @items = @list.items
@@ -11,7 +17,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to lists_path, notice: 'Lista criada com sucesso!'
+      redirect_to lists_path
     else
       render :new  
     end

@@ -1,20 +1,27 @@
 <div class="w-full h-full relative">
     <header class="w-full flex items-center py-5 flex-col gap-2.5">
         <%= image_tag image_path("logo.png"), alt: "Logo do software", class: "w-16 h-auto" %>
-        <%= render Input::InputComponent.new(name: :search, placeholder: 'Procurar lista') %>
+        <%= form_tag lists_path, method: :get, class: 'flex gap-2 items-center'  do %>
+            <%= render Input::InputComponent.new(name: :name, placeholder: 'Procurar lista', value: params[:name], required: true) %>
+            <% if params[:name] %>
+                <%= link_to lists_path, data: { turbo: false } do %>
+                    <i class="material-icons text-secondary-500 cursor-pointer">close</i>
+                <% end  %>
+            <% end %>
+        <% end %>
     </header>
     
+    <% if @lists.present? %>
     <section class="grid grid-cols-2 gap-4">
-        <% if @lists.present? %>
             <% @lists.each do |list| %>
                 <%= link_to list_path(list) do %>
                     <%= render Card::CardComponent.new(title: list.name, items: list.items) %>
                 <% end %>
             <% end %>
-        <% else %>
-            <h1 class="w-full text-lg text-gray-950 text-center whitespace-nowrap">Ainda não há listas.</h1>
-        <% end %>
     </section>
+    <% else %>
+        <h1 class="w-full text-lg text-gray-950 text-center whitespace-nowrap">Não há listas.</h1>
+    <% end %>
     
     <%= render Modal::ModalComponent.new(title: 'Criar lista') do |modal_component| %>
         <% modal_component.with_button do %>

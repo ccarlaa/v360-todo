@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
     @items = Item.all
   end
   def create
-    puts 'SDLFKASDÇFKASÇDLFKASDLFK'
     @list = List.find(params[:list_id])
     @item = @list.items.build(item_params)
 
